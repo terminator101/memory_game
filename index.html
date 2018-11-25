@@ -1,13 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	 <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>The memory game</title>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>The memory game</title>
 
-	<!-- Bootstrap -->
+    <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -15,54 +17,151 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-	
+  <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+  <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
+  <script src="js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
 
-	 <script type="text/javascript" src="js/jquery-ui-1.10.4.custom.min.js"></script>
-	<script type="text/javascript" src="js/card.js"></script>
-	<script type="text/javascript" src="js/player.js"></script>
-	<script type="text/javascript" src="js/dialog.js"></script>
-	<script type="text/javascript" src="js/memory_game.js"></script>
-	<script type="text/javascript" src="js/helper_functions.js"></script>
-	<link rel="stylesheet" href="css/style.css" type="text/css" />
-	<link rel="stylesheet" href="css/jquery-ui-1.10.4.custom.css" />
-	
-</head>
-<body>
+  <script type="text/javascript" src="js/card.js"></script>
+  <script type="text/javascript" src="js/player.js"></script>
+  <script type="text/javascript" src="js/dialog.js"></script>
+  <script type="text/javascript" src="js/memory_game.js"></script>
+  <script type="text/javascript" src="js/helper_functions.js"></script>
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <link rel="stylesheet" href="css/jquery-ui-1.10.4.custom.css" />
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-		Click on cards to flip them over. If they match, you will get a point, if not, try again or pass the mouse to the next person (if playing with multiple people). The top part of the screen displays the player whose turn it is. The bottom part shows the scores for the individual players.
-		For now the only way to play against other people is by passing the mouse, but I do plan to add computer players in the future and eventually make the game playable online against other people.
-		Enjoy!
-		</div>
-	</div>
-	<div class="row-fluid">
-		<div class="col-md-12">
+  </head>
+  <body>
+    <div class="container">
+      <!--  <div id="playerEntry" title="Welcome to my Memory Game!">
+        <div id="cardNumberContainer"></div>
+        <div id="playerInputContainer"></div>
+        <div id="playerButtonContainer"></div>
+        </div> -->
 
-		<div id="playerEntry" title="Welcome to my Memory Game!">
-		<div id="cardNumberContainer"></div>
-		<div id="playerInputContainer"></div>
-		<div id="playerButtonContainer"></div>
-		</div>
+      <div class="row">
+          <div class="col-md-12">
+            <p>
+          Click on cards to flip them over. If they match, you will get a point, if not, try again or pass the mouse to the next person (if playing with multiple people). The top part of the screen displays the player whose turn it is. The bottom part shows the scores for the individual players.
+    For now the only way to play against other people is by passing the mouse, but I do plan to add computer players in the future and eventually make the game playable online against other people.
+    Enjoy!
+            </p>
+          </div>
+      </div>
 
-		<div id="result" title="Result"></div>
-		<div id="currentPlayer"></div>
-		<div id="cardsHolder">
-		</div>
-		<div id="playerHolder">
-			<div id="playersContainer"></div>
-		</div>
-		</div>
-	</div>
-</div>
+      <div class="row">
+        <div id="playerEntryContainer" class="col-md-5 col-md-offset-3 col-sm-8 col-sm-offset-2 no-padding">
+          <div id="playerEntry">
+            <div class="form-group">
+              <div id="cardNumberContainer" class=""></div>
+            </div>
+            <div class="form-group">
+              <div id="gameThemeContainer" class=""></div>
+            </div>
+            <div class="form-group">
+              <div id="playerInputContainer" class=""></div>
+            </div>
+            <div class="form-group">
+              <div id="playerButtonContainer" class="btn-group btn-group-justified" role="group"></div>
+            </div>
+              <button id="startGame" type="button" class="btn btn-primary btn-block">Start</button>
+          </div>
+        </div>
+      </div>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!-- Add this back when ready
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+      <div class="row">
+        <div id="finalContainer" class="col-md-6 col-md-offset-3 no-padding text-center">
+          <div id="result">
+            <div class="row">
+              <div class="col-md-12">
+                 <h4>Game Over!</h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div id="resultContainer" class="col-md-12"></div>
+              </div>
+            </div>
+            <div class="row">
+              <br />
+              <div class="col-md-12 btn-group btn-group-justified">
+                <a id="rematchGame" type="button" role="button" class="btn btn-primary">Rematch</a>
+                <a id="resetGame" type="button" role="button" class="btn btn-primary">Reset</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-12">
+            <div id="currentPlayer"></div>
+          </div>
+      </div>
+      <div class="row"> 
+          <div id="cardsHolder" class="col-lg-12 no-padding">
+
+          </div>
+      </div>
+      <div class="row">
+          <div id="playerHolder" class="col-md-12 no-padding">
+              <!-- <div id="playersContainer"></div> -->
+          </div>
+      </div>
+      
+      <!-- <div id="playerEntry" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+               <h4 class="modal-title">Welcome to my Memory Game!</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="form-group">
+                  <div id="cardNumberContainer" class="col-md-12"></div>
+                </div>
+                <div class="form-group">
+                  <div id="gameThemeContainer" class="col-md-12"></div>
+                </div>
+                <div id="playerInputContainer" class="col-md-12"></div>
+                <div id="playerButtonContainer" class="col-md-12"></div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+              <button id="startGame" type="button" class="btn btn-default">Ok</button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- <div id="result" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Game Over!</h4>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div id="resultContainer"></div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button id="rematchGame" type="button" class="btn btn-default">Rematch</button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-</body>
+
+  </body>
 </html>
- 
