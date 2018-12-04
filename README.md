@@ -8,6 +8,8 @@
 
 Afterwards you can add either more players or computers
 
+<img src="https://github.com/terminator101/memory_game/blob/github/screenshots/MemoryGame2.JPG" width="100%">
+
 - You click on two cards and if they match, you get to keep going and get a point
 - If the cards don't match, you lose your turn
 - The current players name is displayed on the top of the board
@@ -16,5 +18,3 @@ Afterwards you can add either more players or computers
 ## Computers
 - The computers know only which cards have been previously flipped
 - There is a 50% chance that a computer will make a mistake when opening a second card
-
-<img src="https://github.com/terminator101/memory_game/blob/github/screenshots/MemoryGame2.JPG" width="100%">
