@@ -1,6 +1,6 @@
 **Memory Game**
 
-<img src="https://github.com/terminator101/memory_game/blob/github/screenshots/MemoryGame1.JPG" width="100%">
+<img src="https://github.com/terminator101/memory_game/blob/github/screenshots/MemoryGame1.JPG">
 
 - You start by picking how many cards you want to play with
 - Then you pick the theme
