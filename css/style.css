@@ -64,10 +64,12 @@
 
 .card-image:hover {
 	border: 1px solid black;
+	padding: 0px;
 }
 
 .card-image {
 	cursor: pointer;
+	padding: 1px;
 }
 
 .initcard {
