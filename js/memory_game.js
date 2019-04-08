@@ -2,28 +2,23 @@
 // Main function that will create the memory game
 /////////////////
 var memoryGame = function(){
-	/*let defaults = {
-		blockerState  : "hide",
-		cardsHolder	  : $("#cardsHolder"),
-		rematchButton : $("#rematchGame"),
-		resultDialog  : $('#result')
-	}*/
+
 	this.theDialog = '';
 	this.currentPlayerId = 0;
 	this.blockerState = "hide";
 
 	//set the cards
 	this.cardArray = [];
-	this.currentPlayerElement = $("#currentPlayer");
-	this.cardsHolder 		  = $("#cardsHolder");
-	this.playerHolderElement  = $("#playerHolder");
-	this.rematchButton 		  = $("#rematchGame");
-	this.resetButton 		  = $("#resetGame");
-	this.resultDialog 	      = $('#result');
-	this.resultContainer      = $('#resultContainer');
+	this.currentPlayerElement = jQuery("#currentPlayer");
+	this.cardsHolder 		  = jQuery("#cardsHolder");
+	this.playerHolderElement  = jQuery("#playerHolder");
+	this.rematchButton 		  = jQuery("#rematchGame");
+	this.resetButton 		  = jQuery("#resetGame");
+	this.resultDialog 	      = jQuery('#result');
+	this.resultContainer      = jQuery('#resultContainer');
 
-	this.playerEntryContainer 	= $("#playerEntryContainer");
-	this.finalDialogContainer 	= $("#finalContainer");
+	this.playerEntryContainer 	= jQuery("#playerEntryContainer");
+	this.finalDialogContainer 	= jQuery("#finalContainer");
 
 	this.previouslyFlippedCards = [];
 
@@ -37,16 +32,10 @@ var memoryGame = function(){
 	this.secondId 		   = "";
 	this.firstArrayItemId  = "";
 	this.secondArrayItemId = "";
-
-	this.setRematchButton();
-	this.setResetButton();
 	
 	return this;
 };
 
-
-//Not backwards compatible
-//memoryGame.prototype.setParamethers = function(numberOfCards,gameTheme, {players = [], contaierId} = {} ){
 memoryGame.prototype.setParamethers = function(numberOfCards,gameTheme, players, contaierId){
 	var that = this;
 	that.numberOfCards = numberOfCards;
@@ -60,7 +49,7 @@ memoryGame.prototype.createDialog = function(){
 	that.theDialog = new dialog('playerEntry',that);
 	that.theDialog.addDialogElements();
 	that.theDialog.execute();
-	$('#result').hide();
+	jQuery('#result').hide();
 };
 
 memoryGame.prototype.execute = function(){
@@ -99,13 +88,9 @@ memoryGame.prototype.setGameTheme = function(gameTheme){
 };
 
 //Player functions
-//Not backwards compatible
-//memoryGame.prototype.storePlayers = function(playerArray = []){
 memoryGame.prototype.storePlayers = function(playerArray){
 	var that = this;
-	//Set the players
 	that.playerArray = playerArray;
-	//Set the first player as current
 };
 
 memoryGame.prototype.setRematchButton = function(){
@@ -260,25 +245,8 @@ memoryGame.prototype.displayCurrentPlayer = function(playerObject){
 //Add on clikk event to a card
 memoryGame.prototype.setOnClick = function(triggerElement,arrayItemId,totalElements){
 	var that = this;
-	$(triggerElement).click(function(){
+	jQuery(triggerElement).click(function(){
 		that.checkCardState(that.cardArray,arrayItemId);
-		//alert(triggerElement);
-		//loop through all elements
-		/*for (var i = 0; i < totalElements; i++){
-			//current element in the array has been found so work with it
-			if (currentNumber === i){
-				//highlight or remove the highlight from the heading that was clicked on, and hide or show the slide element belonging to it
-				that.checkCardState(currentNumber);
-				//setActiveHidden(triggerElementArray[currentNumber],targetElementArray[currentNumber]);
-			}
-			f//all other elements will have either highlight removed or will be hidden
-			else {
-				//remove highlight from all other heading elements
-				hideRemovehighlight(triggerElementArray[i],"heading");
-				//hide all other slide elements
-				hideRemovehighlight(targetElementArray[i],"slide");
-			}
-		}*/
 	});
 };
 
@@ -287,12 +255,6 @@ memoryGame.prototype.checkCardState = function(theArray,theArrayItemId){
 	
 	var that = this;
 	
-	//that.previouslyFlippedCards.push(theArray[theArrayItemId]);
-	//var list;
-	//for(var i = 0; i < that.previouslyFlippedCards.length; i++){
-	//	list =+ i;
-		//list =+ that.previouslyFlippedCards[i].Object.getId() + ",";
-	//};
 	theArray[theArrayItemId].setPreviouslyOpened();
 	
 	if (that.firstValue == "empty"){
@@ -326,29 +288,6 @@ memoryGame.prototype.checkCardState = function(theArray,theArrayItemId){
 			that.secondValue = "empty";
 		}
 	} 
-	/*if (that.flippedCardArray.length == 0){
-		that.flippedCardArray.push(theArray[theArrayItemId]);
-		that.firstValue = that.flippedCardArray[0].Object.getValue();
-		that.firstId = that.flippedCardArray[0].Object.getId();
-		//that.firstArrayItemId = that.flippedCardArray[0].Object.getArrayItemId();
-		//alert(theArrayItemId);
-		//console.log("First: " + theArrayItemId);
-		that.flippedCardArray[0].Object.hideElement("placeholder");
-		that.flippedCardArray[0].Object.showElement("hiddenImage");	
-	} 
-	else 
-	if (that.flippedCardArray.length == 1 && (theArray[theArrayItemId].Object.getId() != that.firstId)){
-		that.flippedCardArray.push(theArray[theArrayItemId]);
-		that.secondValue = that.flippedCardArray[1].Object.getValue();
-		that.secondId = that.flippedCardArray[1].Object.getId();
-		//that.secondArrayItemId = that.flippedCardArray[1].Object.getArrayItemId();
-		//console.log(theArrayItemId + "||");
-		//console.log("Second: " + theArrayItemId);
-		that.flippedCardArray[1].Object.hideElement("placeholder");
-		that.flippedCardArray[1].Object.showElement("hiddenImage");
-		
-		that.compareCardValues(theArray);
-	}*/
 };
 
 //compare the card values
@@ -356,8 +295,7 @@ memoryGame.prototype.compareCardValues = function(theArray){
 	var that = this;
 	//prevent the user from clicking on more than two cards
 	that.toggleBlocker();
-	//that.displayBlocker("show");
-	//console.log(that.firstValue + "||" + that.secondValue);
+
 	if (that.firstValue != that.secondValue){
 		//the values do not match so wait 1500 milliseconds and then show the placeholders
 		setTimeout(function(){
@@ -365,12 +303,7 @@ memoryGame.prototype.compareCardValues = function(theArray){
 			theArray[that.firstId].showElement("placeholder");
 			theArray[that.secondId].hideElement("hiddenImage");
 			theArray[that.secondId].showElement("placeholder");
-			//that.firstArrayItemId
-			//for(var i=0;i < that.flippedCardArray.length; i++){
-			//	that.flippedCardArray[i].Object.hideElement("hiddenImage");
-			//	that.flippedCardArray[i].Object.showElement("placeholder");
-			//}
-			//that.flippedCardArray = [];
+
 			if (that.playerArray.length > 1){
 				//there are multiple players so switch to the next one
 				that.createTurn("next");
@@ -379,50 +312,27 @@ memoryGame.prototype.compareCardValues = function(theArray){
 				that.createTurn("current");
 			}
 			
-			//console.log('Length of open: ' + that.flippedCardArray.length);
 			//allow the user to click on cards once again
 			that.toggleBlocker();
-			//that.displayBlocker("hide");
 		},1700);
 	}
 	else 
 	if (that.firstValue == that.secondValue){
 		//the values match so wait 500 milliseconds and then hide the images and increase score
-		
 		setTimeout(function(){
-			//for(var i=0;i < that.flippedCardArray.length; i++){
-				//that.flippedCardArray[i].Object.hideElement("card");
-				
-				//that.cardArray.splice(that.flippedCardArray[i].Object.getArrayItemId, 1);
-				//that.flippedCardArray.splice(i, 1);
-			//}
+
 			theArray[that.firstId].hideElement("card");
 			theArray[that.secondId].hideElement("card");
-			//theArray[that.firstId].Object.removeCard();
-			//theArray[that.secondId].Object.removeCard();
-			/*for(var i=0; i < that.cardArray.length; i++){
-				switch(that.cardArray[i].Object.getValue()){
-				case that.firstValue:
-				case that.secondValue:
-					that.cardArray.splice(i, 1);
-				}
-			}*/
-			
-			//that.cardArray.splice(that.secondId, 1);
+
 			//Both first and second values match so increase the score for the current player
 			var result = that.increaseScore();
 			if (result !== false) {
 				that.createTurn("current");
 			}
-			that.toggleBlocker();
-			//console.log('Length of open: ' + that.flippedCardArray.length);
 			//allow the user to click on cards once again
-			
-			//that.displayBlocker("hide");
+			that.toggleBlocker();
 		},500);
 	}
-	//alert("test");
-	
 	
 };
 
@@ -440,7 +350,6 @@ memoryGame.prototype.goNextPlayer = function(){
 	} else {
 		that.currentPlayerId = 0;
 		that.playerArray[0].setPlayerAsCurrent();
-		//that.playerArray[that.playerArray.length - 1].Object.setPlayerAsPrevious();
 	}
 	that.displayCurrentPlayer(that.playerArray[that.currentPlayerId]);
 	that.createTurn("current");
@@ -521,9 +430,6 @@ memoryGame.prototype.goComputer = function(){
 			else {
 				that.checkCardState(that.cardArray,openCards[1].getArrayItemId());
 			}
-			//console.log("Possible Card Numbers:" + possibleCardNumbers);
-			//that.checkCardState(possibleCards,that.cardArray.length - 1);
-			//that.openRandomCard(possibleCardNumbers,possibleCardNumbers.length);
 		},1700);
 	} else {
 		logAction("No possible cards left");
@@ -601,32 +507,17 @@ memoryGame.prototype.findPreviousAndPossibleCards = function(possibleCardNumbers
 
 memoryGame.prototype.findMatch = function(previousCardArray){
 	
-	/*var randomNumber = generateRandom(2);
-	//console.log(randomNumber);
-	var makeMistake = false;
-	
-	if(randomNumber == 1){
-		makeMistake = true;
-	};*/
-	
 	var openTheseCardsArray = [];
 	//Find out if the card array item id matches the one in the previous cards array
 	for(var m=0; m<previousCardArray.length; m++){
 		//For each item in the previous card array, loop through the the previous card array
 		for(var p=0; p<previousCardArray.length; p++){
 			
-			/*if(makeMistake == true){
-				if(previousCardArray[p].getArrayItemId() != previousCardArray[m].getArrayItemId()){
-					openTheseCardsArray.push(previousCardArray[p],previousCardArray[m]);
-					return openTheseCardsArray;
-				}
-			} else {*/
-				//If a value matches the current card, but the Id is different add it to the array of cards that will be opened
-				if(previousCardArray[p].getValue() == previousCardArray[m].getValue() && previousCardArray[p].getArrayItemId() != previousCardArray[m].getArrayItemId()){
-					openTheseCardsArray.push(previousCardArray[p],previousCardArray[m]);
-					return openTheseCardsArray;
-				}
-			/*}*/
+			//If a value matches the current card, but the Id is different add it to the array of cards that will be opened
+			if(previousCardArray[p].getValue() == previousCardArray[m].getValue() && previousCardArray[p].getArrayItemId() != previousCardArray[m].getArrayItemId()){
+				openTheseCardsArray.push(previousCardArray[p],previousCardArray[m]);
+				return openTheseCardsArray;
+			}
 		}
 	}
 	return false;
@@ -651,7 +542,7 @@ memoryGame.prototype.increaseScore = function(){
 	that.playerArray[that.currentPlayerId].increasePlayerScore();
 	that.increaseTotalScore();
 	that.createTurn("end");
-	$("#player" + that.currentPlayerId + "score").val(that.playerArray[that.currentPlayerId].getPlayerScore());
+	jQuery("#player" + that.currentPlayerId + "score").val(that.playerArray[that.currentPlayerId].getPlayerScore());
 	if (that.totalScore == that.numberOfPairs){ 
 		that.createResult();
 		return false;
@@ -677,16 +568,13 @@ memoryGame.prototype.createResult = function(){
 		var winnerName = winner.getPlayerName();
 		var winnerColor = winner.getPlayerCssClass();
 	if (playerArrayWithHighestScore.length == 1){
-		//displayText = `<span class="${winnerColor}">${winnerName}</span> is the winner!!`;
 		displayText = '<span class="' + winnerColor + '">' + winnerName + '</span> is the winner!!';
 	} else {
-		//displayText = `It's a tie for the win between <span class="${winnerColor}">${winnerName}</span> and `;
 		displayText = 'It\'s a tie for the win between <span class="' + winnerColor + '">'+ winnerName + '</span> and ';
 		for(var i = 1; i < playerArrayWithHighestScore.length; i++){
 			var winner = playerArrayWithHighestScore[i];
 			var winnerName = winner.getPlayerName();
 			var winnerColor = winner.getPlayerCssClass();
-			//displayText += `<span class="${winnerColor}">${winnerName}</span>`;
 			displayText += '<span class="' + winnerColor + '">' + winnerName + '</span>';
 		};
 		
@@ -694,35 +582,18 @@ memoryGame.prototype.createResult = function(){
 	var resultText = jQuery('<div/>', {
 		html: displayText
 	});
-	logAction("game over");
-	logAction("---------")
+
 	resultText.appendTo( that.resultContainer );
+	that.setRematchButton();
+	that.setResetButton();
 
 	that.currentPlayerElement.empty();
 	that.currentPlayerElement.removeClass();
 	that.destroyCards();
 	that.cardsHolder.empty();
-	//that.playerHolderElement.empty();
 
 	that.resultDialog.show();
-	//that.resultDialog.modal('toggle');
-	//that.resultDialog.appendTo( that.finalDialogContainer );
-	//$('#result').append( $("#finalContainer") );
-	/*$(function() {
-		$( "#result" ).dialog({
-			 modal: true,
-			 buttons: {
-				 Ok: function() {
-					 $( this ).dialog( "close" );
-				 },
-				 //Still need to work on this
-				 //Restart: function() {
-				//	 $( this ).dialog( "close" );
-				//	 restartGame();
-				 //}
-			 }
-		});
-	});*/
+
 };
 
 memoryGame.prototype.getPlayersWithHighestScores = function(){
@@ -753,7 +624,7 @@ memoryGame.prototype.toggleBlocker = function(){
 	var playerType = that.playerArray[that.currentPlayerId].getPlayerType();
 	var state = that.getBlockerState();
 	if((state == "show" && playerType != 'computer') || that.gameOver == true) {
-		$("#blocker").detach();
+		jQuery("#blocker").detach();
 		that.setBlockerState("hide");
 	} else 
 	if(state == "hide"){
@@ -772,30 +643,8 @@ memoryGame.prototype.setBlockerState = function(state){
 	that.blockerState = state;
 };
 
-//blocker used to prevent interaction with any of the cards
-/*memoryGame.prototype.displayBlocker = function(state){
-	var that = this;
-	var playerType = that.playerArray[that.currentPlayerId].Object.getPlayerType();
-	var blocker = jQuery('<div/>', {
-		id: "blocker",
-	});
-	alert(state + " " + playerType);
-	if (state == "show"){
-		blocker.appendTo("body");
-	} 
-	else 
-	if(state == "hide" && playerType == 'player'){
-		$("#blocker").detach();
-	};
-};*/
-
 memoryGame.prototype.destroyCards = function(){
 	var that = this;
-	/*var contaier = that.cardsHolder;
-	for (var i=0; i< that.cardArray.length; i++){
-		that.cardArray[i].Element.remove();
-	}*/
-	//that.cardsHolder.empty();
 	that.cardArray.length = 0;
 };
 
@@ -804,7 +653,7 @@ memoryGame.prototype.resetScores = function(){
 	that.totalScore = 0;
 	for (var i=0; i< that.playerArray.length; i++){
 		that.playerArray[i].setPlayerScore(0);
-		$("#player" + i + "score").val(0);
+		jQuery("#player" + i + "score").val(0);
 	}
 };
 
