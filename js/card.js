@@ -96,12 +96,12 @@ card.prototype.showElement = function(theType){
 	switch (theType){
 	case "hiddenImage":
 		that.setCardState("open");
-		$("#" + theId + "img").show();
+		jQuery("#" + theId + "img").show();
 		//cardArray[theId].Object.getState();
 		break;
 	case "placeholder":
 		that.setCardState("possible");
-		$("#" + theId + "placeholderimg").show();
+		jQuery("#" + theId + "placeholderimg").show();
 	}
 };
 
@@ -158,17 +158,17 @@ card.prototype.hideElement = function(theType){
 	case "hiddenImage":
 		//the card image was set to be hidden so change the card state to possible
 		that.setCardState("possible");
-		$("#" + theId + "img").hide();
+		jQuery("#" + theId + "img").hide();
 		break;
 	case "placeholder":
 		//the placeholder was set to be hidden so change the card state to open
 		that.setCardState("open");
-		$("#" + theId + "placeholderimg").hide();
+		jQuery("#" + theId + "placeholderimg").hide();
 		break;
 	case "card":
 		//The whole card has been removed to set the state as removed
 		that.setCardState("removed");
-		$("#" + theId + "img").detach();
+		jQuery("#" + theId + "img").detach();
 		emptyImage = that.createImage(theId,'removed','empty.jpg');
 		emptyImage.appendTo(that.output);
 	}

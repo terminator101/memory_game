@@ -16,11 +16,11 @@ var dialog = function(dialogContainerId,theMemoryGame){
 	this.defaultNumberOfCards 	= 24;
 	this.defaultTheme 			= this.cardThemeArray[0];
 	this.cardSelectionIncrement = 6;
-	this.dialogElement 			= $("#" + dialogContainerId);
-	this.cardNumberContainer 	= $("#cardNumberContainer");
-	this.gameThemeContainer 	= $("#gameThemeContainer");
-	this.playerInputContainer 	= $("#playerInputContainer");
-	this.playerButtonContainer 	= $("#playerButtonContainer");
+	this.dialogElement 			= jQuery("#" + dialogContainerId);
+	this.cardNumberContainer 	= jQuery("#cardNumberContainer");
+	this.gameThemeContainer 	= jQuery("#gameThemeContainer");
+	this.playerInputContainer 	= jQuery("#playerInputContainer");
+	this.playerButtonContainer 	= jQuery("#playerButtonContainer");
 	this.addComputerButtonId	= "addComputer";
 	this.addHumanButtonId		= "addPlayer";
 	this.computerDifficulties	= ["player","computer normal","computer hard"];
@@ -91,7 +91,7 @@ dialog.prototype.addDialogElements = function(){
 	addHumanButton.appendTo(that.playerButtonContainer);
 	addComputerButton.appendTo(that.playerButtonContainer);
 	
-	$('#numberOfCards').focus();
+	jQuery('#numberOfCards').focus();
 };
 
 dialog.prototype.getDialogElement = function(){
@@ -139,8 +139,8 @@ dialog.prototype.decreasePlayerCounter = function(){
 
 dialog.prototype.addDialogFunctionality = function(){
 	var that = this;
-	$(function() {
-		$( "#startGame").click(function(){
+	jQuery(function() {
+		jQuery( "#startGame").click(function(){
 			that.closeOrNot();
 		});
 	});
@@ -153,7 +153,7 @@ dialog.prototype.findPLayer = function(number){
 		name = false;
 	}
 	if (!name) {
-		playerName = $("#player" + number).val();
+		playerName = jQuery("#player" + number).val();
 	} else {
 		playerName = name;
 	}
@@ -184,11 +184,11 @@ dialog.prototype.storePlayersCreateGame = function(){
 
 		//loop through the number of players
 		for(var i = 0; i < playerNumber; i++){
-			var playerName = $("#player" + i).val();
+			var playerName = jQuery("#player" + i).val();
 			//Make sure that a player is created only when the name is not null
 			if(playerName != ""){
 				//Create new player
-				that.playerArray[i] = new player(i,$("#player" + i).val(),$("#computer" + i).prop('checked'));
+				that.playerArray[i] = new player(i,jQuery("#player" + i).val(),jQuery("#computer" + i).prop('checked'));
 				
 				that.playerArray[i].setPlayerCssClass("player" + i + "color");
 			}
@@ -252,7 +252,7 @@ dialog.prototype.closeOrNot = function(){
 dialog.prototype.getFirstPlayerName = function(){
 	var that = this;
 	//Check the element with player0 id
-	var name = $("#player0").val();
+	var name = jQuery("#player0").val();
 
 	//if the name is not in the array, return false
 	if (name == undefined || name == '') {
@@ -311,8 +311,8 @@ dialog.prototype.createAddPlayerButton = function(playerType){
 			    		addFocusToInput(playerInputId);
 			    	}
 				} else {
-					$('#' + that.addHumanButtonId).addClass( "disabled" );
-					$('#' + that.addComputerButtonId).addClass( "disabled" );
+					jQuery('#' + that.addHumanButtonId).addClass( "disabled" );
+					jQuery('#' + that.addComputerButtonId).addClass( "disabled" );
 				}
 			}
 			
@@ -350,7 +350,7 @@ dialog.prototype.populateDropDown = function(selector,theArray,defaultSelection)
 		  	selectedOption = '';
 	  	}
 	  	//$(selector).append(`<option ${selectedOption} value="${theArray[i]}"> ${theArray[i]} </option>`);
-		$(selector).append('<option ' + selectedOption + ' value="' + theArray[i] + '">' + theArray[i] + '</option>');
+		jQuery(selector).append('<option ' + selectedOption + ' value="' + theArray[i] + '">' + theArray[i] + '</option>');
 	}
 };
 
