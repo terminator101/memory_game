@@ -9,13 +9,15 @@ var memoryGame = function(){
 
 	//set the cards
 	this.cardArray = [];
+
+	//Set all the div IDs that will be used fo the game
 	this.currentPlayerElement = jQuery("#currentPlayer");
 	this.cardsHolder 		  = jQuery("#cardsHolder");
 	this.playerHolderElement  = jQuery("#playerHolder");
 	this.rematchButton 		  = jQuery("#rematchGame");
 	this.resetButton 		  = jQuery("#resetGame");
-	this.resultDialog 	      = jQuery('#result');
-	this.resultContainer      = jQuery('#resultContainer');
+	this.resultDialog 	      = jQuery("#result");
+	this.resultContainer      = jQuery("#resultContainer");
 
 	this.playerEntryContainer 	= jQuery("#playerEntryContainer");
 	this.finalDialogContainer 	= jQuery("#finalContainer");
@@ -36,30 +38,42 @@ var memoryGame = function(){
 	return this;
 };
 
+//Set the paramethers required to create the game
 memoryGame.prototype.setParamethers = function(numberOfCards,gameTheme, players, contaierId){
 	var that = this;
+	//Store the number of cards
 	that.numberOfCards = numberOfCards;
+	//Set the game theme
 	that.setGameTheme(gameTheme);
+	//Store the players
 	that.playerArray = players;
-	that.contaierId = contaierId;
+	//Set where player names will be displayed
+	that.playerHoldercontaierId = contaierId;
 };
 
+//Create the dialog element 
 memoryGame.prototype.createDialog = function(){
 	var that = this;
 	that.theDialog = new dialog('playerEntry',that);
 	that.theDialog.addDialogElements();
 	that.theDialog.execute();
-	jQuery('#result').hide();
+	jQuery( that.resultDialog ).hide();
 };
 
+//Run the game
 memoryGame.prototype.execute = function(){
 	var that = this;
+	//Create all cards
 	that.createCards();
+	//Store all players
 	that.storePlayers(that.playerArray);
-	that.addToPlayerContainer(that.contaierId);
+	//Display the players in the holder container
+	that.addPlayersToPlayerContainer(that.playerHoldercontaierId);
+	//Start the game
 	that.start();
 };
 
+//STart the game, initially and after a rematch
 memoryGame.prototype.start = function(){
 	var that = this;
 	that.playerArray[0].setPlayerAsCurrent();
@@ -67,6 +81,7 @@ memoryGame.prototype.start = function(){
 	that.createTurn("current");
 }
 
+//Set the theme of the cards
 memoryGame.prototype.setGameTheme = function(gameTheme){
 	var that = this;
 	switch(gameTheme){
@@ -84,15 +99,19 @@ memoryGame.prototype.setGameTheme = function(gameTheme){
 							'IMG_0705.jpg','IMG_0710.jpg','IMG_0848.jpg','IMG_0850.jpg','IMG_0748.jpg'];
 		this.placeholderImage = "IMG_0711.jpg";
 		break;
+	default:
+		alert("Not a valid theme");
 	}
 };
 
 //Player functions
+//Store the players
 memoryGame.prototype.storePlayers = function(playerArray){
 	var that = this;
 	that.playerArray = playerArray;
 };
 
+//Add click functinality to the rematch button
 memoryGame.prototype.setRematchButton = function(){
 	var that = this;
 	that.rematchButton.click(function(){
@@ -101,9 +120,11 @@ memoryGame.prototype.setRematchButton = function(){
 	});
 };
 
+//Do a rematch
 memoryGame.prototype.rematch = function(){
 	var that = this;
 	logAction("rematch");
+	//
 	that.clearResults();
 	that.resetScores();
 	that.resetCurrentPlayer();
@@ -113,6 +134,7 @@ memoryGame.prototype.rematch = function(){
 	that.start();
 };
 
+//Add click functionality to the reset button
 memoryGame.prototype.setResetButton = function(){
 	var that = this;
 	that.resetButton.click(function(){
@@ -121,6 +143,7 @@ memoryGame.prototype.setResetButton = function(){
 	});
 };
 
+//Do a reset
 memoryGame.prototype.reset = function(){
 	var that = this;
 	logAction("reset");
@@ -139,7 +162,8 @@ memoryGame.prototype.reset = function(){
 	that.playerHolderElement.empty();
 };
 
-memoryGame.prototype.addToPlayerContainer = function(containerId){
+//Add each player to the container that will hold all players
+memoryGame.prototype.addPlayersToPlayerContainer = function(containerId){
 	var that = this;
 	for (var i = 0 ; i < that.playerArray.length; i++) {
 		var playerId   = that.playerArray[i].getPlayerId();
@@ -150,6 +174,7 @@ memoryGame.prototype.addToPlayerContainer = function(containerId){
 	}
 };
 
+//Create a container that will store the player scores
 memoryGame.prototype.createContainer = function(playerId,playerName,numberOfPlayers){
 	var that = this;
 	var cssClass = that.setContainerClass(numberOfPlayers);
@@ -176,6 +201,7 @@ memoryGame.prototype.createContainer = function(playerId,playerName,numberOfPlay
 	return container;
 };
 
+//Set the size of each container depending on the number of players
 memoryGame.prototype.setContainerClass = function(numberOfPlayers){
 	var cssClass;
 	switch(numberOfPlayers){
@@ -219,6 +245,7 @@ memoryGame.prototype.createCards = function(){
 		that.cardArray[i].getElement().appendTo(that.cardsHolder);
 		//append each card object to the array
 		that.cardArray[i].setArrayItemId(i);
+		//Set the placeholder image to be clickable
 		that.setOnClick(that.cardArray[i].getPlaceholder(), i, that.numberOfCards);
 	}
 };
@@ -336,16 +363,18 @@ memoryGame.prototype.compareCardValues = function(theArray){
 	
 };
 
+//Let the next player make a turn
 memoryGame.prototype.goNextPlayer = function(){
 	var that = this;
 	//Get the current player
 	that.currentPlayerId = that.getCurrentPlayerId();
 
-	//set the current player as previous
+	//Check if the current player id is less than the number of players
 	if (that.currentPlayerId < (that.playerArray.length - 1)){
-
+		//set the current player as previous
 		that.playerArray[that.currentPlayerId].setPlayerAsPrevious();
 		that.currentPlayerId += 1;
+		//Set the next player as current
 		that.playerArray[that.currentPlayerId].setPlayerAsCurrent();
 	} else {
 		that.currentPlayerId = 0;
@@ -356,18 +385,22 @@ memoryGame.prototype.goNextPlayer = function(){
 	
 };
 
+//Create a turn based on the type
 memoryGame.prototype.createTurn = function(type){
 	var that = this;
 	switch(type){
 	case "current":
+		//Its current players turn so check if it is a computer
 		if(that.playerArray[that.currentPlayerId].getPlayerType() == 'computer'){
 			logAction("Computer Turn");
+			//Let the computer go
 			that.goComputer();
 		} else {
 			logAction("Human Turn");
 		}
 		break;
 	case "next":
+		//It is the next players turn so switch
 		that.goNextPlayer();
 		break;
 	case "end":
@@ -417,8 +450,6 @@ memoryGame.prototype.goComputer = function(){
 		//that.compareCardValues();
 		setTimeout(function(){
 			possibleCardNumbers = that.SetPossibleCardArray();
-			//that.findPreviousAndPossibleCards(possibleCardNumbers);
-			//var openCardTwo = that.createMatchingCardsArray(possibleCardNumbers);
 			if(openCards == false || makeMistake == true){
 				var uniqueAndUnopenedCardNumbers = that.setPossibleAndUnopenedCardArray();
 				if (uniqueAndUnopenedCardNumbers.length != 0) {
@@ -452,6 +483,7 @@ memoryGame.prototype.SetPossibleCardArray = function(){
 	return possibleCardNumbers;
 };
 
+//Create an array of cards that match any of the possible cards
 memoryGame.prototype.createMatchingCardsArray = function(possibleCardNumbers){
 	var that = this;
 	//Get all the cards that are an option as well as all previously opened cards
@@ -485,6 +517,7 @@ memoryGame.prototype.setPossibleAndUnopenedCardArray = function(){
 	return possibleAndUnopenedCardNumbers;
 };
 
+//Find previously opened cards that can be still be opened
 memoryGame.prototype.findPreviousAndPossibleCards = function(possibleCardNumbers){
 	var that = this;
 	var possiblePairs = [];
@@ -505,6 +538,7 @@ memoryGame.prototype.findPreviousAndPossibleCards = function(possibleCardNumbers
 	return possiblePairs;
 };
 
+//Find a match using the array item values
 memoryGame.prototype.findMatch = function(previousCardArray){
 	
 	var openTheseCardsArray = [];
@@ -622,32 +656,30 @@ memoryGame.prototype.toggleBlocker = function(){
 		id: "blocker",
 	});
 	var playerType = that.playerArray[that.currentPlayerId].getPlayerType();
-	var state = that.getBlockerState();
-	if((state == "show" && playerType != 'computer') || that.gameOver == true) {
-		jQuery("#blocker").detach();
+	var blockerState = that.blockerState;
+	if((blockerState == "show" && playerType != 'computer') || that.gameOver == true) {
+		jQuery( "#blocker" ).detach();
 		that.setBlockerState("hide");
 	} else 
-	if(state == "hide"){
+	if(blockerState == "hide"){
 		blocker.appendTo( that.cardsHolder );
 		that.setBlockerState("show");
 	}
 };
 
-memoryGame.prototype.getBlockerState = function(){
-	var that = this;
-	return that.blockerState;
-};
-
+//Update the blocker state
 memoryGame.prototype.setBlockerState = function(state){
 	var that = this;
 	that.blockerState = state;
 };
 
+//Empty the array that holds all the cards
 memoryGame.prototype.destroyCards = function(){
 	var that = this;
 	that.cardArray.length = 0;
 };
 
+//Reset crores for each player
 memoryGame.prototype.resetScores = function(){
 	var that = this;
 	that.totalScore = 0;
@@ -657,11 +689,13 @@ memoryGame.prototype.resetScores = function(){
 	}
 };
 
+//Clear the results container
 memoryGame.prototype.clearResults = function(){
 	var that = this;
 	that.resultContainer.empty();
 };
 
+//Set the current player back to the first one
 memoryGame.prototype.resetCurrentPlayer = function(){
 	var that = this;
 	that.currentPlayerId = 0;

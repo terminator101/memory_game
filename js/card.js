@@ -97,7 +97,6 @@ card.prototype.showElement = function(theType){
 	case "hiddenImage":
 		that.setCardState("open");
 		jQuery("#" + theId + "img").show();
-		//cardArray[theId].Object.getState();
 		break;
 	case "placeholder":
 		that.setCardState("possible");
@@ -116,24 +115,10 @@ card.prototype.getCardState = function(){
 	return that.cardState;
 };
 
+//Get the value of the card
 card.prototype.getValue = function(){
 	var that = this;
 	return that.value;
-};
-
-card.prototype.getId = function(){
-	var that = this;
-	return that.theId;
-};
-
-//card.prototype.removeCard = function(){
-//	var that = this;
-//	that.removed = true;
-//};
-
-card.prototype.isRemoved = function(){
-	var that = this;
-	return that.removed;
 };
 
 //set the state of the card. Its either flipped(the image is visible) or none
@@ -174,17 +159,13 @@ card.prototype.hideElement = function(theType){
 	}
 };
 
-card.prototype.displayArrayItemId = function(){
-	var that = this;
-	var arrayItemDisplayId = '<div style="position:absolute;width:20px;height:20px;background-color:white;">' + that.arrayId + '</div>';
-	arrayItemDisplayId.appendTo(this.output);
-};
-
+//Store the id from the array into the card
 card.prototype.setArrayItemId = function(theId){
 	var that = this;
 	that.arrayId = theId;
 };
 
+//Get the array id from the card
 card.prototype.getArrayItemId = function(){
 	var that = this;
 	return that.arrayId;

@@ -21,10 +21,12 @@ var dialog = function(dialogContainerId,theMemoryGame){
 	this.gameThemeContainer 	= jQuery("#gameThemeContainer");
 	this.playerInputContainer 	= jQuery("#playerInputContainer");
 	this.playerButtonContainer 	= jQuery("#playerButtonContainer");
+	this.startGameButton		= jQuery("#startGame");
 	this.addComputerButtonId	= "addComputer";
 	this.addHumanButtonId		= "addPlayer";
 	this.computerDifficulties	= ["player","computer normal","computer hard"];
 	this.defaultDifficulty		= this.computerDifficulties[0];
+	this.debug 					= false;
 	
 	return this;
 };
@@ -65,6 +67,11 @@ dialog.prototype.addDialogElements = function(){
 
 	var cardNumberOptionArray = that.populateArrayWithNumbers(that.minimumNumberOfOptions,that.maximumNumberOfCards,that.cardSelectionIncrement);
 
+	if (that.debug == true) {
+		cardNumberOptionArray.push(6);
+		that.defaultNumberOfCards = 6;
+	}
+
 	//Populate the number of cards drop down menu
 	that.populateDropDown(that.selectorContainer,cardNumberOptionArray,that.defaultNumberOfCards);
 
@@ -83,15 +90,13 @@ dialog.prototype.addDialogElements = function(){
 	
 	//Add a first player
 	that.addPlayer(that.playerNumber,that.playerArrayNumber,"");
-	//firstPlayer.appendTo(this.playerInputContainer);
-	
-	var playerInputId = "#player" + that.playerArrayNumber;
-	addFocusToInput(playerInputId);
+
+	//Add focus on the number of cards drop down
+	addFocusToInput("#numberOfCards");
 	
 	addHumanButton.appendTo(that.playerButtonContainer);
 	addComputerButton.appendTo(that.playerButtonContainer);
-	
-	jQuery('#numberOfCards').focus();
+
 };
 
 dialog.prototype.getDialogElement = function(){
@@ -108,16 +113,19 @@ dialog.prototype.populateArrayWithNumbers = function(startOption,endOption,incre
 	return theArray;
 };
 
+//Get the array number of the player
 dialog.prototype.getPlayerArrayNumber = function(){
 	var that = this;
 	return that.playerArrayNumber;
 };
 
+//Increment the number of players
 dialog.prototype.increasePlayerNumber = function(){
 	var that = this;
 	return that.playerNumber++;
 };
 
+//Retrieve the player number
 dialog.prototype.getPlayerNumber = function(){
 	var that = this;
 	return that.playerNumber;
@@ -137,10 +145,11 @@ dialog.prototype.decreasePlayerCounter = function(){
 	}
 };
 
+//
 dialog.prototype.addDialogFunctionality = function(){
 	var that = this;
 	jQuery(function() {
-		jQuery( "#startGame").click(function(){
+		jQuery( that.startGameButton ).click(function(){
 			that.closeOrNot();
 		});
 	});
@@ -167,7 +176,7 @@ dialog.prototype.setNumberOfCards = function(number){
 	if (number !== false) {
 		return number
 	} else {
-		var numberOfCards = getValue('numberOfCards');
+		var numberOfCards = getValue( '#numberOfCards' );
 		if (numberOfCards == undefined) {
 			return false;
 		}
@@ -176,8 +185,8 @@ dialog.prototype.setNumberOfCards = function(number){
 
 dialog.prototype.storePlayersCreateGame = function(){
 	var that = this;
-	var numberOfCards = getValue('numberOfCards');
-	var gameTheme = getValue('gameTheme');
+	var numberOfCards = getValue( '#numberOfCards' );
+	var gameTheme = getValue('#gameTheme');
 	var playerNumber = that.getPlayerNumber();
 
 	if (numberOfCards%2 == 0){
@@ -193,11 +202,6 @@ dialog.prototype.storePlayersCreateGame = function(){
 				that.playerArray[i].setPlayerCssClass("player" + i + "color");
 			}
 		}
-		/* Not backwards compatible
-		var game = new memoryGame(numberOfCards,gameTheme,{
-			players: that.playerArray,
-			contaierId: '#playerHolder'
-		});*/
 		var game;
 		if (that.theMemoryGame == '') {
 			//If a memory game has nto been created, create one
@@ -321,6 +325,7 @@ dialog.prototype.createAddPlayerButton = function(playerType){
 	return addPlayerButton;
 }
 
+//Not used. May be added in the future
 dialog.prototype.addComputerDifficulty = function(containerId){
 	var that = this;
 	/*var difficultyDropDown = jQuery('<div/>', {
@@ -341,6 +346,7 @@ dialog.prototype.addComputerDifficulty = function(containerId){
 	//difficultyDropDown.appendTo(that.playerButtonContainer);
 };
 
+//Populate the drop down menu
 dialog.prototype.populateDropDown = function(selector,theArray,defaultSelection) {
 	var selectedOption = '';
 	for (var i = 0; i < (theArray.length); i++){
@@ -400,9 +406,9 @@ dialog.prototype.addPlayer = function(number, arrayNumber,type){
 		type: "checkbox",
 		value: "computer"
 	});
-	if(type == "computer"){
+	if(type == "computer" || that.debug == true){
 		checkbox.prop( "checked", true );
-		input.prop("value", that.pickRandomComputer()); //that.computerNameArray[that.playerArrayNumber - 1]);
+		input.prop("value", that.pickRandomComputer());
 	};
 	var checkboxLabel = jQuery('<label/>',{});
 	var checkboxText = jQuery('<span/>', {

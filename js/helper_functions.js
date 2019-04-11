@@ -1,11 +1,13 @@
 jQuery(document).ready(function(){
 
 	var game = new memoryGame();
+		//Show the dialog that will set the initial values
 		game.createDialog();
 
 });
 
 var logAction = function(message,value){
+	//Used for debugging
 	/*console.log(message);
 	if (value != undefined) {
 		console.log(value);
@@ -14,12 +16,14 @@ var logAction = function(message,value){
 
 var getJson = function(){
 
+	//set up for future development
 	jQuery.getJSON('http://www.andrejdeveloper.com/wp-json/wp/v2/media',function(data){
 		alert(data);
 	});
 };
 
 
+//unused for now
 var addElementToContainerById = function(theElement,theContainerId){
 	var container = jQuery("#" + theContainerId);
 	theElement.appendTo(container);
@@ -54,8 +58,6 @@ var generateRandom = function(range){
 var openRandom = function(maxRange,theArray){
 	var random = generateRandom(cardArray.length);
 	cardArray[random].Object.checkState();
-	//console.log(theObject);
-	//theObject.checkState();
 };
 
 //Check if the dialog can be closed
@@ -93,11 +95,11 @@ var checkInput = function(input) {
 };
 
 //get the value of a input field
-var getValue = function(input,suppliedValue) {
+var getValue = function(inputId,suppliedValue) {
 	if (suppliedValue == undefined) {
 		suppliedValue = false;
 	};
-	var value = jQuery("#" + input ).val();
+	var value = jQuery( inputId ).val();
 	if (value !== "" || value !== undefined){
 		return value;
 	}
@@ -109,26 +111,7 @@ var getValue = function(input,suppliedValue) {
 	}
 };
 
+//Focus the cursor on a given element id
 var addFocusToInput = function(inputId){
 	jQuery(inputId).focus();
-};
-
-//Remove 
-var removeChildNodes = function(ElementID){
-	var element = document.getElementById(ElementID);
-	if (element.hasChildNodes()) {
-		element.removeChild(element.firstChild);
-	}
-};
-
-var restartGame = function(){
-	cardArray = [];
-	playerArray = [];
-	jQuery( "#playerEntry" ).dialog( "destroy" );
-	removeChildNodes("playerEntry");
-	removeChildNodes("currentPlayer");
-	removeChildNodes("cardsHolder");
-	removeChildNodes("playerHolder");
-	
-	createDialog();
 };
