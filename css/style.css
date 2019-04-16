@@ -9,8 +9,6 @@
  }
 
 #cardsHolder {
-	/* height: 510px; */
-	border: 1px solid black;
 	margin-bottom: 15px;
 }
 
@@ -20,7 +18,6 @@
 
 #playerHolder {
 	text-align: center;
-	border: 2px solid black;
 	margin-left: auto;
     margin-right: auto;
 }

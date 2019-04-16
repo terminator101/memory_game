@@ -73,12 +73,14 @@ memoryGame.prototype.execute = function(){
 	that.start();
 };
 
-//STart the game, initially and after a rematch
+//Start the game, initially and after a rematch
 memoryGame.prototype.start = function(){
 	var that = this;
 	that.playerArray[0].setPlayerAsCurrent();
 	that.displayCurrentPlayer(that.playerArray[0]);
 	that.createTurn("current");
+	that.cardsHolder.css("border","1px solid black");
+	that.playerHolderElement.css("border","2px solid black");
 }
 
 //Set the theme of the cards
