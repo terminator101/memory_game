@@ -1,9 +1,18 @@
 jQuery(document).ready(function(){
 
+	//used for testing
+	var debug = false;
 	var game = new memoryGame();
-		//Show the dialog that will set the initial values
-		game.createDialog();
-
+		if (debug == false) {
+			//Show the dialog that will set the initial values
+			game.createDialog();
+		} else
+		if (debug == true){
+			var playerArray = [new player(0,"Andrej",false)];
+			game.setParamethers(12,"Grampa dog", playerArray, '#playerHolder')
+			game.execute();
+		}
+		
 });
 
 var logAction = function(message,value){

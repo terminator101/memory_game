@@ -79,8 +79,8 @@ memoryGame.prototype.start = function(){
 	that.playerArray[0].setPlayerAsCurrent();
 	that.displayCurrentPlayer(that.playerArray[0]);
 	that.createTurn("current");
-	that.cardsHolder.css("border","1px solid black");
-	that.playerHolderElement.css("border","2px solid black");
+	that.cardsHolder.css("border","1px solid #888");
+	that.playerHolderElement.css("border","1px solid #888");
 }
 
 //Set the theme of the cards
@@ -349,9 +349,6 @@ memoryGame.prototype.compareCardValues = function(theArray){
 	if (that.firstValue == that.secondValue){
 		//the values match so wait 500 milliseconds and then hide the images and increase score
 		setTimeout(function(){
-
-			theArray[that.firstId].hideElement("card");
-			theArray[that.secondId].hideElement("card");
 
 			//Both first and second values match so increase the score for the current player
 			var result = that.increaseScore();
@@ -627,7 +624,7 @@ memoryGame.prototype.createResult = function(){
 	that.currentPlayerElement.removeClass();
 	that.destroyCards();
 	that.cardsHolder.empty();
-
+	that.cardsHolder.css("border","none");
 	that.resultDialog.show();
 
 };
