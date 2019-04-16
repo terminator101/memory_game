@@ -97,7 +97,7 @@ memoryGame.prototype.setGameTheme = function(gameTheme){
 	case "Grampa dog":
 		this.cardImagesArray = ['IMG_0754.jpg','IMG_0766.jpg','IMG_0784.jpg','IMG_0796.jpg','IMG_0749.jpg',
 							'IMG_0812.jpg','IMG_0843.jpg','IMG_0713.jpg','IMG_3866.jpg','IMG_0903.jpg',
-							'IMG_6094.jpg','IMG_6425.jpg','Grampa-on-chair.jpg','IMG_0663.jpg','IMG_0696.jpg',
+							'IMG_6094.jpg','IMG_6425.jpg','IMG_0813.jpg','IMG_0663.jpg','IMG_0696.jpg',
 							'IMG_0705.jpg','IMG_0710.jpg','IMG_0848.jpg','IMG_0850.jpg','IMG_0748.jpg'];
 		this.placeholderImage = "IMG_0711.jpg";
 		break;

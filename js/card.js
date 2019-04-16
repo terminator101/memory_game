@@ -16,7 +16,7 @@ var card = function(value,theId,theFile,placeholderImage){
 	//the default state of a card. The states are: possible, open or removed
 	this.cardState = 'possible';
 
-	this.cardClass = "col-sm-2 col-xs-3 initcard";
+	this.cardClass = "col-sm-2 col-xs-3 initcard no-padding";
 
 	this.imgClass = "img-responsive card-image";
 	
