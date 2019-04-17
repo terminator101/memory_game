@@ -92,14 +92,14 @@ memoryGame.prototype.setGameTheme = function(gameTheme){
 	                    	'DSC01674.jpg','DSC01679.jpg','DSC01688.jpg','DSC01745.jpg','DSC01775.jpg',
 	                    	'DSC01807.jpg','DSC02011.jpg','DSC02067.jpg','DSC02081.jpg','DSC02092.jpg',
 	                    	'DSC02093.jpg','DSC02185.jpg','DSC02204.jpg','DSC02223.jpg','DSC02229.jpg'];
-	    this.placeholderImage = "DSC02429.jpg";
+	    this.placeholderImage = "DSC02993.jpg";
 		break;
 	case "Grampa dog":
 		this.cardImagesArray = ['IMG_0754.jpg','IMG_0766.jpg','IMG_0784.jpg','IMG_0796.jpg','IMG_0749.jpg',
 							'IMG_0812.jpg','IMG_0843.jpg','IMG_0713.jpg','IMG_3866.jpg','IMG_0903.jpg',
 							'IMG_6094.jpg','IMG_6425.jpg','IMG_0813.jpg','IMG_0663.jpg','IMG_0696.jpg',
 							'IMG_0705.jpg','IMG_0710.jpg','IMG_0848.jpg','IMG_0850.jpg','IMG_0748.jpg'];
-		this.placeholderImage = "IMG_0711.jpg";
+		this.placeholderImage = "DSC02202.jpg";
 		break;
 	default:
 		alert("Not a valid theme");
