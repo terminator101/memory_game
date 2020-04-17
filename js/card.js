@@ -16,9 +16,9 @@ var card = function(value,theId,theFile,placeholderImage){
 	//the default state of a card. The states are: possible, open or removed
 	this.cardState = 'possible';
 
-	this.cardClass = "col-sm-2 col-xs-3 initcard no-padding";
+	this.cardClass = "col-md-2 col-sm-3 initcard";
 
-	this.imgClass = "img-responsive card-image";
+	this.imgClass = "img-fluid card-image";
 	
 	this.previouslyOpened = false;
 	//the value of the card that is used to match two cards. Can be different from the ID

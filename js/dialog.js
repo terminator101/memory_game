@@ -291,11 +291,11 @@ dialog.prototype.createAddPlayerButton = function(playerType){
 		theValue = "Computer";
 		break;
 	}
-	var addPlayerButton = jQuery('<a />', {
+	var addPlayerButton = jQuery('<button />', {
 		id: theId,
 		type: "button",
 		value: "Add " + theValue,
-		class: "btn btn-default",
+		class: "btn btn-outline-primary",
 		role: "button",
 		autocomplete: "off",
 		html: "Add " + theValue,
@@ -365,22 +365,28 @@ dialog.prototype.addPlayer = function(number, arrayNumber,type){
 	var that = this;
 
 	var container = jQuery('<div />', {
-		"class": "player" + arrayNumber + "color col-sm-12 no-padding"
+		"class": "player" + arrayNumber + "color col pb-1"
 	});
-	//Text Row
-	var textRowContainer = that.createFormGroupContainer();
+	//Label form group
+	var labelFormGroupContainer = that.createFormGroupContainer();
 
 	var label = jQuery('<label/>', {
 		for: "player" + arrayNumber,
 		html: "&nbsp; Player " + number + " Name:"
 	});
-	label.appendTo(textRowContainer);
+	label.appendTo(labelFormGroupContainer);
 
-	//Input Row
-	var inputRowContainer = that.createFormGroupContainer();
+	//Input form group
+	var inputFormGroupContainer = that.createFormGroupContainer();
+
+	//Row required to allign the items properly
+	var inputRowGroupContainer = jQuery('<div />', {
+		"class": "row align-items-center"
+	});
+	inputRowGroupContainer.appendTo(inputFormGroupContainer);
 
 	var inputContainer = jQuery('<div>', {
-		"class": "col-sm-6 no-padding"
+		"class": "col"
 	});
 	//Input field
 	var input = jQuery('<input/>', {
@@ -390,11 +396,11 @@ dialog.prototype.addPlayer = function(number, arrayNumber,type){
 		maxlength: 15
 	});
 	input.appendTo(inputContainer);
-	inputContainer.appendTo(inputRowContainer);
+	inputContainer.appendTo(inputRowGroupContainer);
 
 	//Checkbox field
 	var checkboxContainer = jQuery('<div>', {
-		"class": "col-sm-6"
+		"class": "col"
 	});
 
 	var checkboxHolder = jQuery('<div>', {
@@ -412,7 +418,7 @@ dialog.prototype.addPlayer = function(number, arrayNumber,type){
 	};
 	var checkboxLabel = jQuery('<label/>',{});
 	var checkboxText = jQuery('<span/>', {
-		html: "Computer"
+		html: " Computer"
 	});
 
 	//Add checkbox
@@ -420,20 +426,20 @@ dialog.prototype.addPlayer = function(number, arrayNumber,type){
 	checkbox.appendTo(checkboxLabel);
 	checkboxText.appendTo(checkboxLabel);
 	checkboxHolder.appendTo(checkboxContainer);
-	checkboxContainer.appendTo(inputRowContainer);
+	checkboxContainer.appendTo(inputRowGroupContainer);
 
 	/*var computerDifficultyContainer = jQuery('<div>', {
-		"class": "col-sm-6 no-padding"
+		"class": "col-sm-6 no-gutters"
 	});
 
 	//Add computer difficulty
 	computerDifficulty = that.addComputerDifficulty(arrayNumber);
 	computerDifficulty.appendTo(computerDifficultyContainer);
-	computerDifficultyContainer.appendTo(inputRowContainer);*/
+	computerDifficultyContainer.appendTo(inputFormGroupContainer);*/
 
 	//Add each row to the main container
-	textRowContainer.appendTo(container);
-	inputRowContainer.appendTo(container);
+	labelFormGroupContainer.appendTo(container);
+	inputFormGroupContainer.appendTo(container);
 
 	/*if (type == "computer") {
 		that.addComputerDifficulty();

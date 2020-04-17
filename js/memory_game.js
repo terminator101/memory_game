@@ -132,6 +132,7 @@ memoryGame.prototype.rematch = function(){
 	that.clearResults();
 	that.resetScores();
 	that.resetCurrentPlayer();
+	that.cardsHolder.empty();
 	that.gameOver = false;
 
 	that.createCards();

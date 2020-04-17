@@ -30,8 +30,8 @@
   <body>
     <div class="container">
 
-      <div class="row">
-          <div class="col-md-12">
+      <div class="row no-gutters">
+          <div class="col">
             <p>
           Click on cards to flip them over. If they match, you will get a point, if not, try again or pass the mouse to the next person (if playing with multiple people). The top part of the screen displays the player whose turn it is. The bottom part shows the scores for the individual players.
     For now the only way to play against other people is by passing the mouse, but I do plan to add computer players in the future and eventually make the game playable online against other people.
@@ -40,8 +40,8 @@
           </div>
       </div>
 
-      <div class="row">
-        <div id="playerEntryContainer" class="col-md-5 col-md-offset-3 col-sm-8 col-sm-offset-2 no-padding">
+      <div class="row h-100 no-gutters justify-content-center">
+        <div id="playerEntryContainer" class="col-lg-5 col-sm-10">
           <div id="playerEntry">
             <div class="form-group">
               <div id="cardNumberContainer" class=""></div>
@@ -53,56 +53,54 @@
               <div id="playerInputContainer" class=""></div>
             </div>
             <div class="form-group">
-              <div id="playerButtonContainer" class="btn-group btn-group-justified" role="group"></div>
+              <div id="playerButtonContainer" class="btn-group w-100" role="group"></div>
             </div>
               <button id="startGame" type="button" class="btn btn-primary btn-block">Start</button>
           </div>
         </div>
       </div>
 
-      <div class="row">
-        <div id="finalContainer" class="col-md-6 col-md-offset-3 no-padding text-center">
+      <div class="row h-100 justify-content-center">
+        <div id="finalContainer" class="col-lg-5 col-sm-10">
           <div id="result">
             <div class="row">
-              <div class="col-md-12">
-                 <h4>Game Over!</h4>
+              <div class="col">
+                 <h4 class="text-center">Game Over!</h4>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12">
-                <div id="resultContainer" class="col-md-12"></div>
+              <div class="col">
+                <div id="resultContainer" class="text-center"></div>
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12">
-                <div class="col-md-12"><p></p></div>
+              <div class="col">
+                <p></p>
               </div>
             </div>
             <div class="row">
               <br />
-              <div class="col-md-12 btn-group btn-group-justified">
-                <a id="rematchGame" type="button" role="button" class="btn btn-primary">Rematch</a>
-                <a id="resetGame" type="button" role="button" class="btn btn-primary">Reset</a>
+              <div class="col-md">
+                <div class="btn-group w-100" role="group">
+                  <button type="button" id="rematchGame" role="button" class="btn btn-outline-primary">Rematch</button>
+                  <button type="button" id="resetGame" type="button" role="button" class="btn btn-outline-primary">Reset</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="row">
-          <div class="col-md-12 no-padding">
+      <div class="row no-gutters">
+          <div class="col-md-12">
             <div id="currentPlayer"></div>
           </div>
       </div>
-      <div class="row"> 
-          <div id="cardsHolder" class="col-lg-12 no-padding">
+      <div id="cardsHolder" class="row row-cols-4 no-gutters"> 
 
-          </div>
       </div>
-      <div class="row">
-          <div id="playerHolder" class="col-md-12 no-padding">
+      <div id="playerHolder" class="row no-gutters">
 
-          </div>
       </div>
     </div>
 
