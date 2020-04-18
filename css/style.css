@@ -23,16 +23,16 @@
 }
 
 .player0color {
-	background-color: red;
+	background-color: #007bff;
 }
 .player1color {
-	background-color: #666DF0;
+	background-color: #6c757d;
 }
 .player2color {
-	background-color: #449d44;
+	background-color: #28a745;
 }
 .player3color {
-	background-color: #D52BBF;
+	background-color: #dc3545;
 }
 .player0color, .player1color, .player2color, .player3color {
 	font-weight: bold;

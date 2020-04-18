@@ -7,14 +7,22 @@ var dialog = function(dialogContainerId,theMemoryGame){
 	}
 	this.playerArrayNumber 		= 0;
 	this.computerNameArray 		= ["Vulcan Raven","Revolver Ocelot","Big Boss","Sniper Wolf","The Sorrow"];
-	this.cardThemeArray 		= ["Grampa dog","Cats"];
+	this.cardThemeArray 		= [
+									{value: "Grampa dog", class: ""},
+									{value: "Cats", class: ""}
+								];
 	this.playerArray 			= [];
 	this.leftMargin 			= 650;
 	this.playerNumber 			= 1;
-	this.minimumNumberOfOptions = 12;
-	this.maximumNumberOfCards 	= 36;
+	this.cardNumberOptionsArray = [
+									{value: 12, class: ""},
+									{value: 18, class: ""},
+									{value: 24, class: ""},
+									{value: 30, class: "d-none d-sm-block"},
+									{value: 36, class: "d-none d-xl-block"}
+								];
 	this.defaultNumberOfCards 	= 24;
-	this.defaultTheme 			= this.cardThemeArray[0];
+	this.defaultTheme 			= "Grampa dog";
 	this.cardSelectionIncrement = 6;
 	this.dialogElement 			= jQuery("#" + dialogContainerId);
 	this.cardNumberContainer 	= jQuery("#cardNumberContainer");
@@ -62,10 +70,10 @@ dialog.prototype.addDialogElements = function(){
 	}); 
 
 	//Create button for adding a player
-	var addHumanButton = that.createAddHumanButton();
-	var addComputerButton = that.createAddComputerButton();
+	var addHumanButton = that.createAddPlayerButton("human");
+	var addComputerButton = that.createAddPlayerButton("computer");
 
-	var cardNumberOptionArray = that.populateArrayWithNumbers(that.minimumNumberOfOptions,that.maximumNumberOfCards,that.cardSelectionIncrement);
+	//that.populateArrayWithNumbers(that.minimumNumberOfOptions,that.maximumNumberOfCards,that.cardSelectionIncrement);
 
 	if (that.debug == true) {
 		cardNumberOptionArray.push(6);
@@ -73,7 +81,7 @@ dialog.prototype.addDialogElements = function(){
 	}
 
 	//Populate the number of cards drop down menu
-	that.populateDropDown(that.selectorContainer,cardNumberOptionArray,that.defaultNumberOfCards);
+	that.populateDropDown(that.selectorContainer,that.cardNumberOptionsArray,that.defaultNumberOfCards);
 
 	//Populate the theme drop down menu
 	that.populateDropDown(that.themeDropDown,that.cardThemeArray,that.defaultTheme);
@@ -204,7 +212,7 @@ dialog.prototype.storePlayersCreateGame = function(){
 		}
 		var game;
 		if (that.theMemoryGame == '') {
-			//If a memory game has nto been created, create one
+			//If a memory game has not been created, create one
 			game = new memoryGame();
 		} else {
 			game = that.theMemoryGame;
@@ -266,18 +274,6 @@ dialog.prototype.getFirstPlayerName = function(){
 	}
 };
 
-dialog.prototype.createAddHumanButton = function(){
-	var that = this;
-	var addHumanButton = that.createAddPlayerButton("human");
-	return addHumanButton;
-};
-
-dialog.prototype.createAddComputerButton = function(){
-	var that = this;
-	var addComputerButton = that.createAddPlayerButton("computer");
-	return addComputerButton;
-};
-
 dialog.prototype.createAddPlayerButton = function(playerType){
 	var that = this;
 	var theId, theValue;
@@ -285,17 +281,19 @@ dialog.prototype.createAddPlayerButton = function(playerType){
 	case "human":
 		theId = that.addHumanButtonId;
 		theValue = "Player";
+		theClass = "btn-success";
 		break;
 	case "computer":
 		theId = that.addComputerButtonId;
 		theValue = "Computer";
+		theClass = "btn-danger";
 		break;
 	}
 	var addPlayerButton = jQuery('<button />', {
 		id: theId,
 		type: "button",
 		value: "Add " + theValue,
-		class: "btn btn-outline-primary",
+		class: "btn " + theClass,
 		role: "button",
 		autocomplete: "off",
 		html: "Add " + theValue,
@@ -349,14 +347,13 @@ dialog.prototype.addComputerDifficulty = function(containerId){
 //Populate the drop down menu
 dialog.prototype.populateDropDown = function(selector,theArray,defaultSelection) {
 	var selectedOption = '';
-	for (var i = 0; i < (theArray.length); i++){
-	  	if(theArray[i] == defaultSelection){
+	for (var option of theArray) {
+	  	if(option.value == defaultSelection){
 		  	selectedOption = "selected";  
 	  	} else {
 		  	selectedOption = '';
 	  	}
-	  	//$(selector).append(`<option ${selectedOption} value="${theArray[i]}"> ${theArray[i]} </option>`);
-		jQuery(selector).append('<option ' + selectedOption + ' value="' + theArray[i] + '">' + theArray[i] + '</option>');
+		jQuery(selector).append('<option ' + selectedOption + ' value="' + option.value + '" class="' + option.class + '">' + option.value + '</option>');
 	}
 };
 

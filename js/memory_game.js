@@ -66,7 +66,7 @@ memoryGame.prototype.createDialog = function(){
 memoryGame.prototype.execute = function(){
 	var that = this;
 	//Create all cards
-	that.createCards();
+	that.createCards(that.numberOfCards);
 	//Store all players
 	that.storePlayers(that.playerArray);
 	//Display the players in the holder container
@@ -135,7 +135,7 @@ memoryGame.prototype.rematch = function(){
 	that.cardsHolder.empty();
 	that.gameOver = false;
 
-	that.createCards();
+	that.createCards(that.numberOfCards);
 	that.start();
 };
 
@@ -190,7 +190,7 @@ memoryGame.prototype.createContainer = function(playerId,playerName,numberOfPlay
 	});
 	var text = jQuery('<span/>', {
 		id: "player" + playerId + "label",
-		"class": "playerlabel",
+		"class": "playerlabel text-white",
 		html: playerName
 	});
 	var theScoreHolder = jQuery('<input/>', {
@@ -228,10 +228,10 @@ memoryGame.prototype.setContainerClass = function(numberOfPlayers){
 
 
 //Card functions
-memoryGame.prototype.createCards = function(){
+memoryGame.prototype.createCards = function(numberOfCards){
 	var that = this;
 	//get the number of pairs be dividing the number of cards
-	that.numberOfPairs = that.numberOfCards / 2;
+	that.numberOfPairs = numberOfCards / 2;
 	//randomize the the image array to ensure that the images are always random
 	that.cardImagesArray = randomizeArray(that.cardImagesArray);
 
@@ -245,13 +245,13 @@ memoryGame.prototype.createCards = function(){
 	//randomize the array that holds the cards to ensure that they are all over the board
 	that.cardArray = randomizeArray(that.cardArray);
 	
-	for(var i = 0; i < that.numberOfCards; i++){
+	for(var i = 0; i < numberOfCards; i++){
 		//append each card element to the  board
 		that.cardArray[i].getElement().appendTo(that.cardsHolder);
 		//append each card object to the array
 		that.cardArray[i].setArrayItemId(i);
 		//Set the placeholder image to be clickable
-		that.setOnClick(that.cardArray[i].getPlaceholder(), i, that.numberOfCards);
+		that.setOnClick(that.cardArray[i].getPlaceholder(), i, numberOfCards);
 	}
 };
 
@@ -271,7 +271,7 @@ memoryGame.prototype.displayCurrentPlayer = function(playerObject){
 	var name = playerObject.getPlayerName();
 	var cssClass = playerObject.getPlayerCssClass();
 	that.currentPlayerElement.text(name);
-	that.currentPlayerElement.attr( "class", cssClass );
+	that.currentPlayerElement.attr( "class", cssClass + " text-white" );
 };
 
 //Add on clikk event to a card
@@ -632,12 +632,12 @@ memoryGame.prototype.createResult = function(){
 	if (playerArrayWithHighestScore.length == 1){
 		displayText = '<span class="' + winnerColor + '">' + winnerName + '</span> is the winner!!';
 	} else {
-		displayText = 'It\'s a tie for the win between <span class="' + winnerColor + '">'+ winnerName + '</span> and ';
+		displayText = 'It\'s a tie for the win between <span class="' + winnerColor + ' text-white">'+ winnerName + '</span> and ';
 		for(var i = 1; i < playerArrayWithHighestScore.length; i++){
 			var winner = playerArrayWithHighestScore[i];
 			var winnerName = winner.getPlayerName();
 			var winnerColor = winner.getPlayerCssClass();
-			displayText += '<span class="' + winnerColor + '">' + winnerName + '</span>';
+			displayText += '<span class="' + winnerColor + ' text-white">' + winnerName + '</span>';
 		};
 		
 	}
