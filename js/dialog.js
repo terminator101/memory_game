@@ -6,7 +6,13 @@ var dialog = function(dialogContainerId,theMemoryGame){
 		this.theMemoryGame = '';
 	}
 	this.playerArrayNumber 		= 0;
-	this.computerNameArray 		= ["Vulcan Raven","Revolver Ocelot","Big Boss","Sniper Wolf","The Sorrow"];
+	this.computerNameArray 		= [
+									"Vulcan Raven",
+									"Revolver Ocelot",
+									"Big Boss",
+									"Sniper Wolf",
+									"The Sorrow"
+									];
 	this.cardThemeArray 		= [
 									{value: "Grampa dog", class: ""},
 									{value: "Cats", class: ""}
