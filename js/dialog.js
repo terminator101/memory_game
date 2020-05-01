@@ -3,7 +3,7 @@ var dialog = function(dialogContainerId,theMemoryGame){
 	if (theMemoryGame !== undefined) {
 		this.theMemoryGame = theMemoryGame;
 	} else {
-		this.theMemoryGame = '';
+		this.theMemoryGame = undefined;
 	}
 	this.playerArrayNumber 		= 0;
 	this.computerNameArray 		= [
@@ -15,7 +15,17 @@ var dialog = function(dialogContainerId,theMemoryGame){
 									];
 	this.cardThemeArray 		= [
 									{value: "Grampa dog", class: ""},
-									{value: "Cats", class: ""}
+									{value: "Cats", class: ""},
+									{value: "Cute animals", class: ""}
+								];
+	this.cardPlaceholderArray 	= [
+									"placeholder_blue.jpg",
+									"placeholder_brown.jpg",
+									"placeholder_gray.jpg",
+									"placeholder_green.jpg",
+									"placeholder_orange.jpg",
+									"placeholder_purple.jpg",
+									"placeholder_red.jpg",
 								];
 	this.playerArray 			= [];
 	this.leftMargin 			= 650;
@@ -201,6 +211,9 @@ dialog.prototype.storePlayersCreateGame = function(){
 	var that = this;
 	var numberOfCards = getValue( '#numberOfCards' );
 	var gameTheme = getValue('#gameTheme');
+
+	var placeholder = "placeholder_blue.jpg";
+
 	var playerNumber = that.getPlayerNumber();
 
 	if (numberOfCards%2 == 0){
@@ -217,13 +230,13 @@ dialog.prototype.storePlayersCreateGame = function(){
 			}
 		}
 		var game;
-		if (that.theMemoryGame == '') {
+		if (that.theMemoryGame == undefined) {
 			//If a memory game has not been created, create one
 			game = new memoryGame();
 		} else {
 			game = that.theMemoryGame;
 		};
-		game.setParamethers(numberOfCards,gameTheme, that.playerArray, '#playerHolder')
+		game.setParamethers(numberOfCards,gameTheme, placeholder, that.playerArray, '#playerHolder')
 		game.execute();
 	} else {
 		alert("The number of cards must be even!");

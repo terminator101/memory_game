@@ -41,12 +41,14 @@ var memoryGame = function(){
 };
 
 //Set the paramethers required to create the game
-memoryGame.prototype.setParamethers = function(numberOfCards,gameTheme, players, contaierId){
+memoryGame.prototype.setParamethers = function(numberOfCards,gameTheme, placeholder, players, contaierId){
 	var that = this;
 	//Store the number of cards
 	that.numberOfCards = numberOfCards;
 	//Set the game theme
 	that.setGameTheme(gameTheme);
+	//Set placeholder image
+	that.setCardPlaceholder(placeholder);
 	//Store the players
 	that.playerArray = players;
 	//Set where player names will be displayed
@@ -94,18 +96,27 @@ memoryGame.prototype.setGameTheme = function(gameTheme){
 	                    	'DSC01674.jpg','DSC01679.jpg','DSC01688.jpg','DSC01745.jpg','DSC01775.jpg',
 	                    	'DSC01807.jpg','DSC02011.jpg','DSC02067.jpg','DSC02081.jpg','DSC02092.jpg',
 	                    	'DSC02093.jpg','DSC02185.jpg','DSC02204.jpg','DSC02223.jpg','DSC02229.jpg'];
-	    this.placeholderImage = "placeholder_blue.jpg";
 		break;
 	case "Grampa dog":
 		this.cardImagesArray = ['IMG_0754.jpg','IMG_0766.jpg','IMG_0784.jpg','IMG_0796.jpg','IMG_0749.jpg',
 							'IMG_0812.jpg','IMG_0843.jpg','IMG_0713.jpg','IMG_3866.jpg','IMG_0903.jpg',
 							'IMG_6094.jpg','IMG_6425.jpg','IMG_0813.jpg','IMG_0663.jpg','IMG_0696.jpg',
 							'IMG_0705.jpg','IMG_0710.jpg','IMG_0848.jpg','IMG_0850.jpg','IMG_0748.jpg'];
-		this.placeholderImage = "placeholder_blue.jpg";
+		break;
+	case "Cute animals":
+		this.cardImagesArray = ['dsc00016.jpg','dsc00087.jpg','dsc00203.jpg','dsc00266.jpg','dsc00268.jpg',
+							'dsc00269.jpg','dsc00290.jpg','dsc00632.jpg','dsc04307.jpg','dsc10267.jpg',
+							'fgwm8764.jpg','img_0639.jpg','img_0772.jpg','img_1015.jpg','img_1017.jpg',
+							'img_1610.jpg','img_1637.jpg','imga_1515.jpg'];
 		break;
 	default:
 		alert("Not a valid theme");
 	}
+};
+
+memoryGame.prototype.setCardPlaceholder = function(placeholderImage){
+	var that = this;
+	this.placeholderImage = placeholderImage;
 };
 
 //Player functions
@@ -630,7 +641,7 @@ memoryGame.prototype.createResult = function(){
 		var winnerName = winner.getPlayerName();
 		var winnerColor = winner.getPlayerCssClass();
 	if (playerArrayWithHighestScore.length == 1){
-		displayText = '<span class="' + winnerColor + '">' + winnerName + '</span> is the winner!!';
+		displayText = '<span class="' + winnerColor + ' text-white">' + winnerName + '</span> is the winner!!';
 	} else {
 		displayText = 'It\'s a tie for the win between <span class="' + winnerColor + ' text-white">'+ winnerName + '</span> and ';
 		for(var i = 1; i < playerArrayWithHighestScore.length; i++){
